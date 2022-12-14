@@ -1,0 +1,34 @@
+create table BDO
+(
+username varchar(18) PRIMARY KEY,
+password varchar(12) NOT NULL
+);
+
+
+create table Project
+(
+projectId int PRIMARY KEY,
+projectName varchar(24) NOT NULL UNIQUE,
+projectDurartion varchar(12) NOT NULL
+);
+
+
+create table GPM
+(
+gpmId int PRIMARY KEY,
+name varchar(24) NOT NULL,
+password varchar(12) NOT NULL,
+projectId int,
+FOREIGN KEY (projectId) REFERENCES Project(projectId) ON DELETE SET NULL
+);
+
+
+create table Employee
+(
+empId int PRIMARY KEY,
+empName varchar(24) NOT NULL,
+joiningDate DATE NOT NULL,
+wages int,
+projectId int,
+FOREIGN KEY(projectId) REFERENCES Project(projectId) ON DELETE SET NULL
+);
