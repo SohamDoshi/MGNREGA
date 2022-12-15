@@ -12,17 +12,17 @@ import com.MGNREGA.model.Project;
 
 public interface BDODao {
 
-	public String BDOLogin(String username, String pass)throws BDOException;
+	public void BDOLogin()throws BDOException;
 	
-	public String CreateNewProject(Project pro)throws ProjectException;
+	public String CreateNewProject()throws ProjectException;
 	
 	public List<Project> ViewAllProjects()throws ProjectException;
 	
-	public String CreateNewGPM(GPM member)throws GPMException;
+	public String CreateNewGPM()throws GPMException;
 	
 	public List<GPM> ViewAllGPM()throws GPMException;
 	
-	public String AllocateProjectToGPM(int GPMId, int ProjectId)throws ProjectException;
+	public String AllocateProjectToGPM()throws ProjectException;
 	
-	public List<Employee> EmployeeWorkingOnProject(int ProjectId)throws EmployeeException; 
+	public List<Employee> EmployeeWorkingOnProject()throws EmployeeException; 
 }
