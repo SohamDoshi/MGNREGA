@@ -32,7 +32,7 @@ public class GPMLoginUseCases {
 		
 		if(opt == 1) {
 			try {
-				dao.CrateEmployee();
+				System.out.println(dao.CrateEmployee());
 			} catch (EmployeeException e) {
 				System.out.println(e.getMessage());
 			} finally {
@@ -40,7 +40,7 @@ public class GPMLoginUseCases {
 			}
 		}else if(opt == 2) {
 			try {
-				dao.ViewDetailsOfEmployee();
+				System.out.println(dao.ViewDetailsOfEmployee());
 			} catch (EmployeeException e) {
 				System.out.println(e.getMessage());
 			} finally {
@@ -48,7 +48,7 @@ public class GPMLoginUseCases {
 			}
 		}else if (opt == 3) {
 			try {
-				dao.AssignProjectToEmployee();
+				System.out.println(dao.AssignProjectToEmployee());
 			} catch (EmployeeException e) {
 				System.out.println(e.getMessage());
 			} finally {
@@ -56,7 +56,7 @@ public class GPMLoginUseCases {
 			}
 		}else if(opt == 4) {
 			try {
-				dao.ViewTotalNumberOfDaysOnProjectAndWages();
+				System.out.println(dao.ViewTotalNumberOfDaysOnProjectAndWages());
 			} catch (EmployeeException e) {
 				System.out.println(e.getMessage());
 			} finally {

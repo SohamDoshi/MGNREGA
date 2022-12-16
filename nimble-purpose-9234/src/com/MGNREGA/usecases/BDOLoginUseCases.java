@@ -8,6 +8,7 @@ import com.MGNREGA.exception.EmployeeException;
 import com.MGNREGA.exception.GPMException;
 import com.MGNREGA.exception.ProjectException;
 import com.MGNREGA.main.Home;
+import com.MGNREGA.tableFormat.PrintTable;
 
 public class BDOLoginUseCases {
 
@@ -39,7 +40,7 @@ public class BDOLoginUseCases {
 			}
 		}else if(opt == 2) {
 			try {
-				System.out.println(dao.ViewAllProjects());
+				PrintTable.printProjectTable(dao.ViewAllProjects());  ;
 			} catch (ProjectException e) {
 				System.out.println(e.getMessage());
 			} finally {
@@ -55,7 +56,7 @@ public class BDOLoginUseCases {
 			}
 		}else if(opt == 4) {
 			try {
-				System.out.println(dao.ViewAllGPM());
+				PrintTable.printGPMTable(dao.ViewAllGPM());
 			} catch (GPMException e) {
 				System.out.println(e.getMessage());
 			} finally {
