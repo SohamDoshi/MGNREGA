@@ -13,6 +13,7 @@ import javax.xml.crypto.Data;
 import com.MGNREGA.exception.EmployeeException;
 import com.MGNREGA.exception.GPMException;
 import com.MGNREGA.model.Employee;
+import com.MGNREGA.usecases.GPMLoginUseCases;
 import com.MGNREGA.utility.DBUtil;
 
 public class GPMDaoImpl implements GPMDao{
@@ -39,7 +40,14 @@ public class GPMDaoImpl implements GPMDao{
 			
 			ResultSet rs = ps.executeQuery();
 			
-			if(rs.next()) res = "Login successful, Welcome Back "+rs.getString("name");
+			if(rs.next()) {
+				System.out.println("Login successful, Welcome Back "+rs.getString("name"));
+				System.out.println();
+				GPMLoginUseCases.GPMDashbord();
+			}else {
+				System.out.println(res);
+				GPMLogin();
+			}
 			
 		}catch (SQLException e) {
 			throw new GPMException(e.getMessage());
@@ -72,7 +80,7 @@ public class GPMDaoImpl implements GPMDao{
 		
 		try(Connection conn = DBUtil.proviodConnection()){
 			
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO Employee(empId,empname,joingDate,wages) VALUES(?,?,?,?)");
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO Employee(empId,empname,joiningDate,wages) VALUES(?,?,?,?)");
 			
 			ps.setInt(1, id);
 			ps.setString(2, name);
