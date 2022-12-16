@@ -34,36 +34,48 @@ public class BDOLoginUseCases {
 				System.out.println(dao.CreateNewProject());
 			} catch (ProjectException e) {
 				System.out.println(e.getMessage());
+			} finally {
+				BDODashbord();
 			}
 		}else if(opt == 2) {
 			try {
 				System.out.println(dao.ViewAllProjects());
 			} catch (ProjectException e) {
 				System.out.println(e.getMessage());
+			} finally {
+				BDODashbord();
 			}
 		}else if(opt == 3) {
 			try {
 				System.out.println(dao.CreateNewGPM());
 			} catch (GPMException e) {
 				System.out.println(e.getMessage());
+			} finally {
+				BDODashbord();
 			}
 		}else if(opt == 4) {
 			try {
 				System.out.println(dao.ViewAllGPM());
 			} catch (GPMException e) {
 				System.out.println(e.getMessage());
+			} finally {
+				BDODashbord();
 			}
 		}else if(opt == 5) {
 			try {
 				System.out.println(dao.AllocateProjectToGPM());
 			} catch (ProjectException e) {
 				System.out.println(e.getMessage());
+			} finally {
+				BDODashbord();
 			}
 		}else if(opt == 6) {
 			try {
 				System.out.println(dao.EmployeeWorkingOnProject());
 			} catch (EmployeeException e) {
 				System.out.println(e.getMessage());
+			} finally {
+				BDODashbord();
 			}
 		}else if(opt == 7) {
 			Home.HomePage();
