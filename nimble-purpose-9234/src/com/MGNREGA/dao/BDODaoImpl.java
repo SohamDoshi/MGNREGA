@@ -15,6 +15,7 @@ import com.MGNREGA.exception.ProjectException;
 import com.MGNREGA.model.Employee;
 import com.MGNREGA.model.GPM;
 import com.MGNREGA.model.Project;
+import com.MGNREGA.usecases.BDOLoginUseCases;
 import com.MGNREGA.utility.DBUtil;
 
 public class BDODaoImpl implements BDODao{
@@ -41,7 +42,11 @@ public class BDODaoImpl implements BDODao{
 			
 			ResultSet rs = ps.executeQuery();
 			
-			if(rs.next()) System.out.println("Welcome Back "+rs.getString("username"));
+			if(rs.next()) {
+				System.out.println("Welcome Back "+rs.getString("username"));
+				System.out.println();
+				BDOLoginUseCases.BDODashbord();
+			}
 			else {
 				System.out.println(res);
 				BDOLogin();
@@ -99,7 +104,7 @@ public class BDODaoImpl implements BDODao{
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				pro.add(new Project(rs.getInt("projectId"), rs.getString("projectName"), rs.getString("projectDruation")));
+				pro.add(new Project(rs.getInt("projectId"), rs.getString("projectName"), rs.getString("projectDuration")));
 			}
 			
 			
