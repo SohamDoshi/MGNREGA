@@ -1,19 +1,33 @@
 package com.MGNREGA.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Scanner;
+
+import javax.xml.crypto.Data;
 
 import com.MGNREGA.exception.EmployeeException;
 import com.MGNREGA.exception.GPMException;
 import com.MGNREGA.model.Employee;
+import com.MGNREGA.usecases.GPMLoginUseCases;
 import com.MGNREGA.utility.DBUtil;
 
 public class GPMDaoImpl implements GPMDao{
 
 	@Override
-	public String GPMLogin(int GPMId, String password) throws GPMException {
+	public String GPMLogin() throws GPMException {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Enter GPMId");
+		int GPMId = sc.nextInt();
+		
+		System.out.println("Enter Password");
+		String pass = sc.next();
 		
 		String res = "Invaild GPMId or Password";
 		
@@ -22,11 +36,18 @@ public class GPMDaoImpl implements GPMDao{
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM GPM WHERE GPMId=? AND password=?");
 			
 			ps.setInt(1, GPMId);
-			ps.setString(2, password);
+			ps.setString(2, pass);
 			
 			ResultSet rs = ps.executeQuery();
 			
-			if(rs.next()) res = "Login successful, Welcome Back "+rs.getString("name");
+			if(rs.next()) {
+				System.out.println("Login successful, Welcome Back "+rs.getString("name"));
+				System.out.println();
+				GPMLoginUseCases.GPMDashbord();
+			}else {
+				System.out.println(res);
+				GPMLogin();
+			}
 			
 		}catch (SQLException e) {
 			throw new GPMException(e.getMessage());
@@ -36,22 +57,39 @@ public class GPMDaoImpl implements GPMDao{
 	}
 
 	@Override
-	public String CrateEmployee(Employee emp) throws EmployeeException {
+	public String CrateEmployee() throws EmployeeException {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Enter new EmpId");
+		int id = sc.nextInt();
+		
+		System.out.println("Enter Employee Name");
+		String name = sc.next();
+		
+		System.out.println("Enter Employee Joining Date[yyyy-mm-dd]");
+		String jdate = sc.next();
+		Date date = Date.valueOf(jdate);
+		
+		System.out.println("Enter Employee Wages[w/day]");
+		int wages = sc.nextInt();
+		
+		
 		
 		String res = "Employee is not added to records"; 
 		
 		try(Connection conn = DBUtil.proviodConnection()){
 			
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO Employee(empId,empname,joingDate,wages) VALUES(?,?,?,?)");
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO Employee(empId,empname,joiningDate,wages) VALUES(?,?,?,?)");
 			
-			ps.setInt(1, emp.getEmpId());
-			ps.setString(2, emp.getEmpName());
-			ps.setDate(3, emp.getJoininDate());
-			ps.setInt(4, emp.getWages());
+			ps.setInt(1, id);
+			ps.setString(2, name);
+			ps.setDate(3, date);
+			ps.setInt(4, wages);
 			
 			int x = ps.executeUpdate();
 			
-			if(x > 0) res = "Employee is added to records with id "+emp.getEmpId();
+			if(x > 0) res = "Employee is added to records with id "+id;
 			
 		}catch (SQLException e) {
 			throw new EmployeeException(e.getMessage());
@@ -61,7 +99,7 @@ public class GPMDaoImpl implements GPMDao{
 	}
 
 	@Override
-	public Employee ViewDetailsOfEmployee(int empId) throws EmployeeException {
+	public Employee ViewDetailsOfEmployee() throws EmployeeException {
 		
 		Employee emp = null;
 		
@@ -83,7 +121,15 @@ public class GPMDaoImpl implements GPMDao{
 	}
 
 	@Override
-	public String AssignProjectToEmployee(int empId, int projectId) throws EmployeeException {
+	public String AssignProjectToEmployee() throws EmployeeException {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Enter Employee Id ");
+		int id = sc.nextInt();
+		
+		System.out.println("Enter Project Id ");
+		int pid = sc.nextInt();
 		
 		String res  = "Project is not allocted to Employee"; 
 		
@@ -91,8 +137,8 @@ public class GPMDaoImpl implements GPMDao{
 			
 			PreparedStatement ps = conn.prepareStatement("UPDATE Employee SET projectId=? WHERE empId=?");
 			
-			ps.setInt(1, projectId);
-			ps.setInt(2, empId);
+			ps.setInt(1,pid);
+			ps.setInt(2, id);
 			
 			int x  = ps.executeUpdate();
 			
@@ -106,7 +152,7 @@ public class GPMDaoImpl implements GPMDao{
 	}
 
 	@Override
-	public Employee ViewTotalNumberOfDaysOnProjectAndWages(int empId) throws EmployeeException {
+	public Employee ViewTotalNumberOfDaysOnProjectAndWages() throws EmployeeException {
 		// TODO Auto-generated method stub
 		return null;
 	}

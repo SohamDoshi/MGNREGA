@@ -6,13 +6,13 @@ import com.MGNREGA.model.Employee;
 
 public interface GPMDao {
 
-	public String GPMLogin(int GPMId, String password)throws GPMException;
+	public String GPMLogin()throws GPMException;
 	
-	public String CrateEmployee(Employee emp) throws EmployeeException; 
+	public String CrateEmployee() throws EmployeeException; 
 	
-	public Employee ViewDetailsOfEmployee(int empId)throws EmployeeException;
+	public Employee ViewDetailsOfEmployee()throws EmployeeException;
 	
-	public String AssignProjectToEmployee(int empId, int projectId)throws EmployeeException;
+	public String AssignProjectToEmployee()throws EmployeeException;
 	
-	public Employee ViewTotalNumberOfDaysOnProjectAndWages (int empId)throws EmployeeException;
+	public Employee ViewTotalNumberOfDaysOnProjectAndWages ()throws EmployeeException;
 }

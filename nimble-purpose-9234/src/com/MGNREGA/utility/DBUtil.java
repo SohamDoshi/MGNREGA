@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 public class DBUtil {
 
 	private static String url;
+	private static String driverName;
 	private static String username;
 	private static String password;
 	
@@ -16,6 +17,7 @@ public class DBUtil {
 		ResourceBundle rb = ResourceBundle.getBundle("dbdetails");
 		
 		url = rb.getString("db.url");
+		driverName = rb.getString("db.drivername");
 		username = rb.getString("db.username");
 		password = rb.getString("db.password");
 	}
@@ -24,6 +26,13 @@ public class DBUtil {
 	public static Connection proviodConnection() {
 		
 		Connection conn = null;
+		
+		
+		try {
+			Class.forName(driverName);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		try {
 			conn = DriverManager.getConnection(url, username, password);
