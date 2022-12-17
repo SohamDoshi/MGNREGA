@@ -6,6 +6,7 @@ import com.MGNREGA.dao.GPMDao;
 import com.MGNREGA.dao.GPMDaoImpl;
 import com.MGNREGA.exception.EmployeeException;
 import com.MGNREGA.main.Home;
+import com.MGNREGA.tableFormat.PrintTable;
 
 public class GPMLoginUseCases {
 
@@ -32,7 +33,7 @@ public class GPMLoginUseCases {
 		
 		if(opt == 1) {
 			try {
-				dao.CrateEmployee();
+				System.out.println(dao.CrateEmployee());
 			} catch (EmployeeException e) {
 				System.out.println(e.getMessage());
 			} finally {
@@ -40,7 +41,7 @@ public class GPMLoginUseCases {
 			}
 		}else if(opt == 2) {
 			try {
-				dao.ViewDetailsOfEmployee();
+				PrintTable.printEmployeeTable(dao.ViewDetailsOfEmployee());
 			} catch (EmployeeException e) {
 				System.out.println(e.getMessage());
 			} finally {
@@ -48,7 +49,7 @@ public class GPMLoginUseCases {
 			}
 		}else if (opt == 3) {
 			try {
-				dao.AssignProjectToEmployee();
+				System.out.println(dao.AssignProjectToEmployee());
 			} catch (EmployeeException e) {
 				System.out.println(e.getMessage());
 			} finally {
@@ -56,7 +57,7 @@ public class GPMLoginUseCases {
 			}
 		}else if(opt == 4) {
 			try {
-				dao.ViewTotalNumberOfDaysOnProjectAndWages();
+				 PrintTable.printEmployeeWagesTable(dao.ViewTotalNumberOfDaysOnProjectAndWages());
 			} catch (EmployeeException e) {
 				System.out.println(e.getMessage());
 			} finally {
