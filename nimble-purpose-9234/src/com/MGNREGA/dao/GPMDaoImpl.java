@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.xml.crypto.Data;
@@ -13,6 +15,7 @@ import javax.xml.crypto.Data;
 import com.MGNREGA.exception.EmployeeException;
 import com.MGNREGA.exception.GPMException;
 import com.MGNREGA.model.Employee;
+import com.MGNREGA.model.EmployeeDTO;
 import com.MGNREGA.usecases.GPMLoginUseCases;
 import com.MGNREGA.utility.DBUtil;
 
@@ -99,17 +102,19 @@ public class GPMDaoImpl implements GPMDao{
 	}
 
 	@Override
-	public Employee ViewDetailsOfEmployee() throws EmployeeException {
+	public List<Employee> ViewDetailsOfEmployee() throws EmployeeException {
 		
-		Employee emp = null;
+		List<Employee> emp = new ArrayList<>();
+		
 		
 		try(Connection conn = DBUtil.proviodConnection()){
 			
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM Employee WHERE empId=?");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM Employee");
 			
 			ResultSet rs = ps.executeQuery();
 			
-			if(rs.next()) emp = new Employee(rs.getInt("empId"), rs.getString("empName"), rs.getDate("joiningDate"), rs.getInt("wages"), rs.getInt("projectId"));
+			while(rs.next()) 
+				emp.add(new Employee(rs.getInt("empId"), rs.getString("empName"), rs.getDate("joiningDate"), rs.getInt("wages"), rs.getInt("projectId"))); 
 				
 				
 		}catch (SQLException e) {
@@ -152,9 +157,34 @@ public class GPMDaoImpl implements GPMDao{
 	}
 
 	@Override
-	public Employee ViewTotalNumberOfDaysOnProjectAndWages() throws EmployeeException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<EmployeeDTO> ViewTotalNumberOfDaysOnProjectAndWages() throws EmployeeException {
+		
+		List<EmployeeDTO> emp = new ArrayList<>();
+		
+		try(Connection conn = DBUtil.proviodConnection()){
+			
+			PreparedStatement ps = conn.prepareStatement("SELECT e.empid, e.empName, e.projectid, p.projectName, e.joiningDate, DATEDIFF(CURDATE(),e.joiningDate) AS No_OF_Days,e.wages,DATEDIFF(CURDATE(),e.joiningDate)*e.wages AS Total_Wages FROM Employee e INNER JOIN Project p ON e.projectId = p.projectId GROUP BY e.empId;");
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				int eid = rs.getInt("empId");
+				String ename = rs.getString("empName");
+				int pid = rs.getInt("projectId");
+				String pname = rs.getString("projectName");
+				Date date = rs.getDate("joiningDate");
+				int days = rs.getInt("No_OF_Days");
+				int wage = rs.getInt("wages");
+				int total = rs.getInt("Total_Wages");
+				
+				emp.add(new EmployeeDTO(eid, ename, pid, pname, date, days, wage, total));
+			}
+			
+		}catch (SQLException e) {
+			throw new EmployeeException(e.getMessage());
+		}
+		
+		return emp;
 	}
 
 	
