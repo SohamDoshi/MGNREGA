@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.MGNREGA.colors.ConsoleColor;
 import com.MGNREGA.exception.BDOException;
 import com.MGNREGA.exception.EmployeeException;
 import com.MGNREGA.exception.GPMException;
@@ -24,14 +25,14 @@ public class BDODaoImpl implements BDODao{
 	public void BDOLogin() throws BDOException {
 		
 		Scanner sc = new Scanner(System.in);
-		
-		System.out.println("Enter Username");
+		System.out.println();
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Username"+ConsoleColor.RESET);
 		String user = sc.next();
 		
-		System.out.println("Enter password");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter password"+ConsoleColor.RESET);
 		String pass = sc.next();
 		
-		String res = "Invaild Username or Password";
+		String res = ConsoleColor.RED_BOLD_BRIGHT+"Invaild Username or Password"+ConsoleColor.RESET;
 		
 		try(Connection conn = DBUtil.proviodConnection()){
 			
@@ -43,7 +44,8 @@ public class BDODaoImpl implements BDODao{
 			ResultSet rs = ps.executeQuery();
 			
 			if(rs.next()) {
-				System.out.println("Welcome Back "+rs.getString("username"));
+				System.out.println();
+				System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+" Welcome Back "+ConsoleColor.RESET+ConsoleColor.GREEN_BOLD_BRIGHT+rs.getString("username")+"!"+ConsoleColor.RESET);
 				System.out.println();
 				BDOLoginUseCases.BDODashbord();
 			}
@@ -62,16 +64,16 @@ public class BDODaoImpl implements BDODao{
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Enter Project ID");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Project ID"+ConsoleColor.RESET);
 		int id = sc.nextInt();
 		
-		System.out.println("Enter Project Name");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Project Name"+ConsoleColor.RESET);
 		String name = sc.next();
 		
-		System.out.println("Enter Project Duration");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Project Duration [Number of Days]"+ConsoleColor.RESET);
 		String dur = sc.next();
 		
-		String res = "Project creation Failed";
+		String res = ConsoleColor.RED_BOLD_BRIGHT+"Project creation Failed"+ConsoleColor.RESET;
 		
 		try(Connection conn = DBUtil.proviodConnection()){
 			
@@ -79,11 +81,11 @@ public class BDODaoImpl implements BDODao{
 			
 			ps.setInt(1, id);
 			ps.setString(2, name);
-			ps.setString(3, dur);
+			ps.setString(3, dur+" Days");
 			
 			int x = ps.executeUpdate();
 			
-			if(x > 0) res = "Project added to records successfully";
+			if(x > 0) res = ConsoleColor.LIGHT_GREEN+"Project added to records successfully"+ConsoleColor.RESET;
 			
 		}catch (SQLException e) {
 			throw new ProjectException(e.getMessage());
@@ -120,16 +122,16 @@ public class BDODaoImpl implements BDODao{
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Enter new GPM Id :");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter new GPM Id :"+ConsoleColor.RESET);
 		int id = sc.nextInt();
 		
-		System.out.println("Enter GPM name :");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter GPM name :"+ConsoleColor.RESET);
 		String name = sc.next();
 		
-		System.out.println("Enter Password");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Password"+ConsoleColor.RESET);
 		String pass = sc.next();
 		
-		String res = "GPM is not added to Records";
+		String res = ConsoleColor.RED_BOLD_BRIGHT+"GPM is not added to Records"+ConsoleColor.RESET;
 		
 		try(Connection conn = DBUtil.proviodConnection()){
 			
@@ -141,7 +143,7 @@ public class BDODaoImpl implements BDODao{
 			
 			int x = ps.executeUpdate();
 			
-			if(x > 0) res = "GPM Successfully added to records";
+			if(x > 0) res = ConsoleColor.LIGHT_GREEN+"GPM Successfully added to records"+ConsoleColor.RESET;
 			
 		}catch (SQLException e) {
 			throw new GPMException(e.getMessage());
@@ -177,13 +179,13 @@ public class BDODaoImpl implements BDODao{
 		
 		Scanner sc = new Scanner(System.in);
 	
-		System.out.println("Enter GMP ID whom to project being allocated");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter GMP ID whom to project being allocated"+ConsoleColor.RESET);
 		int GPMId = sc.nextInt();
 		
-		System.out.println("Enter Project Id");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Project Id :"+ConsoleColor.RESET);
 		int ProjectId = sc.nextInt();
 		
-		String res = "Project is not allocated to employee";
+		String res = ConsoleColor.RED_BOLD_BRIGHT+"Project is not allocated to employee"+ConsoleColor.RESET;
 		
 		try(Connection conn = DBUtil.proviodConnection()){
 			
@@ -194,7 +196,7 @@ public class BDODaoImpl implements BDODao{
 			
 			int x = ps.executeUpdate();
 			
-			if(x > 0) res = "Project is Successfully allocted to GPM with Id "+GPMId;
+			if(x > 0) res = ConsoleColor.LIGHT_GREEN+"Project is Successfully allocted to GPM with Id "+ConsoleColor.RESET+ConsoleColor.BANANA_YELLOW_BOLD+GPMId+ConsoleColor.RESET;
 			
 		}catch (SQLException e) {
 			throw new ProjectException(e.getMessage());
@@ -208,7 +210,7 @@ public class BDODaoImpl implements BDODao{
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Enter Project id :");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Project id :"+ConsoleColor.RESET);
 		int ProjectId = sc.nextInt();
 		
 		List<Employee> emp = new ArrayList<>();
@@ -222,7 +224,7 @@ public class BDODaoImpl implements BDODao{
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				
+				emp.add(new Employee(rs.getInt("empId"), rs.getString("empName"), rs.getDate("joiningDate"), rs.getInt("wages"), rs.getInt("projectId")));
 			}
 			
 		}catch (SQLException e) {

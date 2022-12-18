@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 import javax.xml.crypto.Data;
 
+import com.MGNREGA.colors.ConsoleColor;
 import com.MGNREGA.exception.EmployeeException;
 import com.MGNREGA.exception.GPMException;
 import com.MGNREGA.model.Employee;
@@ -26,13 +27,14 @@ public class GPMDaoImpl implements GPMDao{
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Enter GPMId");
+		System.out.println();
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter GPMId"+ConsoleColor.RESET);
 		int GPMId = sc.nextInt();
 		
-		System.out.println("Enter Password");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Password"+ConsoleColor.RESET);
 		String pass = sc.next();
 		
-		String res = "Invaild GPMId or Password";
+		String res = ConsoleColor.RED_BOLD_BRIGHT+"Invaild GPMId or Password"+ConsoleColor.RESET;
 		
 		try(Connection conn = DBUtil.proviodConnection()){
 			
@@ -44,7 +46,7 @@ public class GPMDaoImpl implements GPMDao{
 			ResultSet rs = ps.executeQuery();
 			
 			if(rs.next()) {
-				System.out.println("Login successful, Welcome Back "+rs.getString("name"));
+				System.out.println(ConsoleColor.LIGHT_GREEN+"Login successful, Welcome Back "+ConsoleColor.RESET+ConsoleColor.BANANA_YELLOW_BOLD+rs.getString("name")+ConsoleColor.RESET);
 				System.out.println();
 				GPMLoginUseCases.GPMDashbord();
 			}else {
@@ -64,22 +66,22 @@ public class GPMDaoImpl implements GPMDao{
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Enter new EmpId");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter new EmpId"+ConsoleColor.RESET);
 		int id = sc.nextInt();
 		
-		System.out.println("Enter Employee Name");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Employee Name"+ConsoleColor.RESET);
 		String name = sc.next();
 		
-		System.out.println("Enter Employee Joining Date[yyyy-mm-dd]");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Employee Joining Date[yyyy-mm-dd]"+ConsoleColor.RESET);
 		String jdate = sc.next();
 		Date date = Date.valueOf(jdate);
 		
-		System.out.println("Enter Employee Wages[w/day]");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Employee Wages[w/day]"+ConsoleColor.RESET);
 		int wages = sc.nextInt();
 		
 		
 		
-		String res = "Employee is not added to records"; 
+		String res = ConsoleColor.RED_BOLD_BRIGHT+"Employee is not added to records"+ConsoleColor.RESET; 
 		
 		try(Connection conn = DBUtil.proviodConnection()){
 			
@@ -92,7 +94,7 @@ public class GPMDaoImpl implements GPMDao{
 			
 			int x = ps.executeUpdate();
 			
-			if(x > 0) res = "Employee is added to records with id "+id;
+			if(x > 0) res = ConsoleColor.LIGHT_GREEN+"Employee is added to records with id - "+ConsoleColor.RESET+ConsoleColor.BANANA_YELLOW_BOLD+id+ConsoleColor.RESET;
 			
 		}catch (SQLException e) {
 			throw new EmployeeException(e.getMessage());
@@ -130,13 +132,13 @@ public class GPMDaoImpl implements GPMDao{
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Enter Employee Id ");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Employee Id "+ConsoleColor.RESET);
 		int id = sc.nextInt();
 		
-		System.out.println("Enter Project Id ");
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Project Id "+ConsoleColor.RESET);
 		int pid = sc.nextInt();
 		
-		String res  = "Project is not allocted to Employee"; 
+		String res  = ConsoleColor.RED_BOLD_BRIGHT+"Project is not allocted to Employee"+ConsoleColor.RESET; 
 		
 		try(Connection conn = DBUtil.proviodConnection()){
 			
@@ -147,7 +149,7 @@ public class GPMDaoImpl implements GPMDao{
 			
 			int x  = ps.executeUpdate();
 			
-			if(x > 0) res = "Project is successfully allocated to Employee!";
+			if(x > 0) res = ConsoleColor.LIGHT_GREEN+"Project is successfully allocated to Employee!"+ConsoleColor.RESET;
 			
 		}catch (SQLException e) {
 			throw new EmployeeException(e.getMessage());

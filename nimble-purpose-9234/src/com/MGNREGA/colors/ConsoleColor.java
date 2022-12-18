@@ -66,6 +66,7 @@ public class ConsoleColor {
     public static final String PURPLE_BOLD = "\033[1;35m"; // PURPLE
     public static final String CYAN_BOLD = "\033[1;36m"; // CYAN
     public static final String WHITE_BOLD = "\033[1;37m"; // WHITE
+    public static final String BANANA_YELLOW_BOLD = "\033[1;38;2;240;238;113m"; // BANANA YELLOW
 
     // Underline
     public static final String BLACK_UNDERLINED = "\033[4;30m"; // BLACK
