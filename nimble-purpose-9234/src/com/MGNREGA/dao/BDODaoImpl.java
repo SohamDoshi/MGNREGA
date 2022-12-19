@@ -193,7 +193,7 @@ public class BDODaoImpl implements BDODao{
 		
 		try(Connection conn = DBUtil.proviodConnection()){
 			
-			PreparedStatement ps = conn.prepareStatement("UPDATE project SET gpmId=? WHERE projectId=? AND gpmId=NULL");
+			PreparedStatement ps = conn.prepareStatement("UPDATE project SET gpmId=? WHERE projectId=? AND gpmId IS NULL");
 			
 			ps.setInt(1, GPMId);
 			ps.setInt(2, ProjectId);

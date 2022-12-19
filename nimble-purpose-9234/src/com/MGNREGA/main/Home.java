@@ -43,6 +43,7 @@ public class Home {
 				System.out.println(e.getMessage());
 			}
 		}else if(opt ==3) {
+			System.out.println(ConsoleColor.GREEN_BOLD+"Application Closed!"+ConsoleColor.RESET);
 			sc.close();
 			System.exit(0);
 		}
