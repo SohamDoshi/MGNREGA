@@ -15,7 +15,7 @@ address varchar(24) NOT NULL
 create table Project
 (
 projectId int PRIMARY KEY,
-GPMId int,
+gpmId int,
 projectName varchar(24) NOT NULL UNIQUE,
 projectDurartion varchar(12) NOT NULL,
 FOREIGN KEY (gpmId) REFERENCES GPM(gpmId) ON DELETE SET NULL
