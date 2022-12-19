@@ -5,28 +5,30 @@ import java.sql.Date;
 public class Employee {
 
 	private int empId;
+	private int gpmId;
+	private int projectId;
 	private String empName;
 	private Date joininDate;
 	private int wages;
-	private int projectId;
 	
 	public Employee() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Employee(int empId, String empName, Date joininDate, int wages, int projectId) {
+	public Employee(int empId, int gpmId, int projectId, String empName, Date joininDate, int wages) {
 		super();
 		this.empId = empId;
+		this.gpmId = gpmId;
+		this.projectId = projectId;
 		this.empName = empName;
 		this.joininDate = joininDate;
 		this.wages = wages;
-		this.projectId = projectId;
 	}
 
 	@Override
 	public String toString() {
-		return "Employee [empId=" + empId + ", empName=" + empName + ", joininDate=" + joininDate + ", wages=" + wages
-				+ ", projectId=" + projectId + "]";
+		return "Employee [empId=" + empId + ", gpmId=" + gpmId + ", projectId=" + projectId + ", empName=" + empName
+				+ ", joininDate=" + joininDate + ", wages=" + wages + "]";
 	}
 
 	public int getEmpId() {
@@ -35,6 +37,22 @@ public class Employee {
 
 	public void setEmpId(int empId) {
 		this.empId = empId;
+	}
+
+	public int getGpmId() {
+		return gpmId;
+	}
+
+	public void setGpmId(int gpmId) {
+		this.gpmId = gpmId;
+	}
+
+	public int getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(int projectId) {
+		this.projectId = projectId;
 	}
 
 	public String getEmpName() {
@@ -61,13 +79,6 @@ public class Employee {
 		this.wages = wages;
 	}
 
-	public int getProjectId() {
-		return projectId;
-	}
-
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
-	}
 	
 	
 	

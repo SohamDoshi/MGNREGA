@@ -5,23 +5,23 @@ public class GPM {
 	private int gmpId;
 	private String name;
 	private String password;
-	private int projectId;
+	private String address;
 	
 	public GPM() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public GPM(int gmpId, String name, String password, int projectId) {
+	public GPM(int gmpId, String name, String password, String address) {
 		super();
 		this.gmpId = gmpId;
 		this.name = name;
 		this.password = password;
-		this.projectId = projectId;
+		this.address = address;
 	}
 
 	@Override
 	public String toString() {
-		return "GMP [gmpId=" + gmpId + ", name=" + name + ", password=" + password + ", projectId=" + projectId + "]";
+		return "GPM [gmpId=" + gmpId + ", name=" + name + ", password=" + password + ", address=" + address + "]";
 	}
 
 	public int getGmpId() {
@@ -48,13 +48,14 @@ public class GPM {
 		this.password = password;
 	}
 
-	public int getProjectId() {
-		return projectId;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setProjectId(int projectId) {
-		this.projectId = projectId;
+	public void setAddress(String address) {
+		this.address = address;
 	}
+
 	
 	
 	

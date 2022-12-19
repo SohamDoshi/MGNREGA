@@ -3,6 +3,7 @@ package com.MGNREGA.model;
 public class Project {
 
 	private int projectId;
+	private int gpmId;
 	private String projecName;
 	private String projectDuration;
 	
@@ -10,17 +11,18 @@ public class Project {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Project(int projectId, String projecName, String projectDuration) {
+	public Project(int projectId, int gpmId, String projecName, String projectDuration) {
 		super();
 		this.projectId = projectId;
+		this.gpmId = gpmId;
 		this.projecName = projecName;
 		this.projectDuration = projectDuration;
 	}
 
 	@Override
 	public String toString() {
-		return "Project [projectId=" + projectId + ", projecName=" + projecName + ", projectDuration=" + projectDuration
-				+ "]";
+		return "Project [projectId=" + projectId + ", gpmId=" + gpmId + ", projecName=" + projecName
+				+ ", projectDuration=" + projectDuration + "]";
 	}
 
 	public int getProjectId() {
@@ -29,6 +31,14 @@ public class Project {
 
 	public void setProjectId(int projectId) {
 		this.projectId = projectId;
+	}
+
+	public int getGpmId() {
+		return gpmId;
+	}
+
+	public void setGpmId(int gpmId) {
+		this.gpmId = gpmId;
 	}
 
 	public String getProjecName() {
@@ -46,7 +56,7 @@ public class Project {
 	public void setProjectDuration(String projectDuration) {
 		this.projectDuration = projectDuration;
 	}
-	
+
 	
 	
 }

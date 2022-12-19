@@ -41,7 +41,6 @@ public class GPMLoginUseCases {
 				System.out.println();
 				System.out.println(dao.CrateEmployee());
 			} catch (EmployeeException e) {
-				System.out.println();
 				System.out.println(ConsoleColor.RED_BOLD_BRIGHT+e.getMessage()+ConsoleColor.RESET);
 			} finally {
 				GPMDashbord();
