@@ -26,7 +26,7 @@ public class BDOLoginUseCases {
 		System.out.println("4. View all the GPM.");
 		System.out.println("5. Allocate  Project to GPM");
 		System.out.println("6. See List of Employee working on that Project and their wages.");
-		System.out.println("7. Go Back");
+		System.out.println("7. Logout");
 		System.out.println();
 		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Option Number :"+ConsoleColor.RESET);
 		
