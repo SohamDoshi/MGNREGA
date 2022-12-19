@@ -22,6 +22,8 @@ import com.MGNREGA.utility.DBUtil;
 
 public class GPMDaoImpl implements GPMDao{
 
+	 public static int GPMId;
+	
 	@Override
 	public String GPMLogin() throws GPMException {
 		
@@ -29,7 +31,8 @@ public class GPMDaoImpl implements GPMDao{
 		
 		System.out.println();
 		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter GPMId"+ConsoleColor.RESET);
-		int GPMId = sc.nextInt();
+		int id = sc.nextInt();
+		
 		
 		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Password"+ConsoleColor.RESET);
 		String pass = sc.next();
@@ -40,14 +43,15 @@ public class GPMDaoImpl implements GPMDao{
 			
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM GPM WHERE GPMId=? AND password=?");
 			
-			ps.setInt(1, GPMId);
+			ps.setInt(1, id);
 			ps.setString(2, pass);
 			
 			ResultSet rs = ps.executeQuery();
 			
 			if(rs.next()) {
-				System.out.println(ConsoleColor.LIGHT_GREEN+"Login successful, Welcome Back "+ConsoleColor.RESET+ConsoleColor.BANANA_YELLOW_BOLD+rs.getString("name")+ConsoleColor.RESET);
+				System.out.println(ConsoleColor.GREEN_BOLD_BRIGHT+"Login successful, Welcome Back "+ConsoleColor.RESET+ConsoleColor.BLUE_BOLD_BRIGHT+rs.getString("name")+ConsoleColor.RESET+ConsoleColor.GREEN_BOLD_BRIGHT+"!"+ConsoleColor.RESET);
 				System.out.println();
+				GPMId=rs.getInt("gpmId");
 				GPMLoginUseCases.GPMDashbord();
 			}else {
 				System.out.println(res);
@@ -68,7 +72,7 @@ public class GPMDaoImpl implements GPMDao{
 		
 		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter new EmpId"+ConsoleColor.RESET);
 		int id = sc.nextInt();
-		
+		System.out.println(GPMId);
 		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Employee Name"+ConsoleColor.RESET);
 		String name = sc.next();
 		
@@ -76,7 +80,7 @@ public class GPMDaoImpl implements GPMDao{
 		String jdate = sc.next();
 		Date date = Date.valueOf(jdate);
 		
-		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Employee Wages[w/day]"+ConsoleColor.RESET);
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Employee Wages[per/day]"+ConsoleColor.RESET);
 		int wages = sc.nextInt();
 		
 		
@@ -85,12 +89,13 @@ public class GPMDaoImpl implements GPMDao{
 		
 		try(Connection conn = DBUtil.proviodConnection()){
 			
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO Employee(empId,empname,joiningDate,wages) VALUES(?,?,?,?)");
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO Employee(empId,gpmId,empname,joiningDate,wages) VALUES(?,?,?,?,?)");
 			
 			ps.setInt(1, id);
-			ps.setString(2, name);
-			ps.setDate(3, date);
-			ps.setInt(4, wages);
+			ps.setInt(2,GPMId);
+			ps.setString(3, name);
+			ps.setDate(4, date);
+			ps.setInt(5, wages);
 			
 			int x = ps.executeUpdate();
 			
@@ -116,7 +121,7 @@ public class GPMDaoImpl implements GPMDao{
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) 
-				emp.add(new Employee(rs.getInt("empId"), rs.getString("empName"), rs.getDate("joiningDate"), rs.getInt("wages"), rs.getInt("projectId"))); 
+				emp.add(new Employee(rs.getInt("empId"),rs.getInt("gpmId"),rs.getInt("projectId"), rs.getString("empName"), rs.getDate("joiningDate"), rs.getInt("wages"))); 
 				
 				
 		}catch (SQLException e) {

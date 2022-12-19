@@ -77,7 +77,7 @@ public class BDODaoImpl implements BDODao{
 		
 		try(Connection conn = DBUtil.proviodConnection()){
 			
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO Project VALUES(?,?,?)");
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO Project(projectId, projectName, projectDuration) VALUES(?,?,?)");
 			
 			ps.setInt(1, id);
 			ps.setString(2, name);
@@ -85,7 +85,7 @@ public class BDODaoImpl implements BDODao{
 			
 			int x = ps.executeUpdate();
 			
-			if(x > 0) res = ConsoleColor.LIGHT_GREEN+"Project added to records successfully"+ConsoleColor.RESET;
+			if(x > 0) res = ConsoleColor.LIGHT_GREEN+"Project added to records successfully!"+ConsoleColor.RESET;
 			
 		}catch (SQLException e) {
 			throw new ProjectException(e.getMessage());
@@ -106,7 +106,7 @@ public class BDODaoImpl implements BDODao{
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				pro.add(new Project(rs.getInt("projectId"), rs.getString("projectName"), rs.getString("projectDuration")));
+				pro.add(new Project(rs.getInt("projectId"), rs.getInt("gpmId"),rs.getString("projectName"), rs.getString("projectDuration")));
 			}
 			
 			
@@ -128,18 +128,22 @@ public class BDODaoImpl implements BDODao{
 		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter GPM name :"+ConsoleColor.RESET);
 		String name = sc.next();
 		
-		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Password"+ConsoleColor.RESET);
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Password :"+ConsoleColor.RESET);
 		String pass = sc.next();
+		
+		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Address :"+ConsoleColor.RESET);
+		String add = sc.next();
 		
 		String res = ConsoleColor.RED_BOLD_BRIGHT+"GPM is not added to Records"+ConsoleColor.RESET;
 		
 		try(Connection conn = DBUtil.proviodConnection()){
 			
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO GPM(gpmId, name, password) VALUES(?,?,?)");
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO GPM(gpmId, password, name, address) VALUES(?,?,?,?)");
 			
 			ps.setInt(1,id);
-			ps.setString(2, name);
-			ps.setString(3, pass);
+			ps.setString(2, pass);
+			ps.setString(3, name);
+			ps.setString(4, add);
 			
 			int x = ps.executeUpdate();
 			
@@ -164,7 +168,7 @@ public class BDODaoImpl implements BDODao{
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				gpm.add(new GPM(rs.getInt("gpmId"), rs.getString("name"), rs.getString("password"), rs.getInt("projectID")));
+				gpm.add(new GPM(rs.getInt("gpmId"), rs.getString("name"), rs.getString("password"), rs.getString("address")));
 			}
 			
 		}catch (SQLException e) {
@@ -185,18 +189,18 @@ public class BDODaoImpl implements BDODao{
 		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Project Id :"+ConsoleColor.RESET);
 		int ProjectId = sc.nextInt();
 		
-		String res = ConsoleColor.RED_BOLD_BRIGHT+"Project is not allocated to employee"+ConsoleColor.RESET;
+		String res = ConsoleColor.RED_BOLD_BRIGHT+"Invaild GPM Id or Project Id, Or Project is already allocated to GPM!"+ConsoleColor.RESET;
 		
 		try(Connection conn = DBUtil.proviodConnection()){
 			
-			PreparedStatement ps = conn.prepareStatement("UPDATE GPM SET projectId=? WHERE gpmId=?");
+			PreparedStatement ps = conn.prepareStatement("UPDATE project SET gpmId=? WHERE projectId=? AND gpmId=NULL");
 			
-			ps.setInt(1, ProjectId);
-			ps.setInt(2, GPMId);
+			ps.setInt(1, GPMId);
+			ps.setInt(2, ProjectId);
 			
 			int x = ps.executeUpdate();
 			
-			if(x > 0) res = ConsoleColor.LIGHT_GREEN+"Project is Successfully allocted to GPM with Id "+ConsoleColor.RESET+ConsoleColor.BANANA_YELLOW_BOLD+GPMId+ConsoleColor.RESET;
+			if(x > 0) res = ConsoleColor.GREEN_BOLD_BRIGHT+"Project is Successfully allocted to GPM with Id "+ConsoleColor.RESET+ConsoleColor.BLUE_BOLD_BRIGHT+GPMId+ConsoleColor.RESET;
 			
 		}catch (SQLException e) {
 			throw new ProjectException(e.getMessage());
@@ -224,7 +228,7 @@ public class BDODaoImpl implements BDODao{
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				emp.add(new Employee(rs.getInt("empId"), rs.getString("empName"), rs.getDate("joiningDate"), rs.getInt("wages"), rs.getInt("projectId")));
+				emp.add(new Employee(rs.getInt("empId"),rs.getInt("gpmId"),rs.getInt("projectId"), rs.getString("empName"), rs.getDate("joiningDate"), rs.getInt("wages")));
 			}
 			
 		}catch (SQLException e) {
