@@ -30,4 +30,4 @@ Function of Gram Panchayet member:
 ![FlowChart](https://user-images.githubusercontent.com/106314995/208410646-bb6370c3-1e2a-4ecf-9c0f-dad7d2c6c79c.png)
 
 <h2>Rails and Relational SQL Database Tables</h2>
-![SQL_Database_Tables](https://user-images.githubusercontent.com/106314995/208415898-b31a4c8d-c8cf-4396-a07c-ce7b00cf5572.png)
+<img src="https://user-images.githubusercontent.com/106314995/208415898-b31a4c8d-c8cf-4396-a07c-ce7b00cf5572.png">
