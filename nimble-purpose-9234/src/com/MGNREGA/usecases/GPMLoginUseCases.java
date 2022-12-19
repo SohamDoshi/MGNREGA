@@ -22,7 +22,7 @@ public class GPMLoginUseCases {
 		System.out.println("2. View the details of employee");
 		System.out.println("3. Assign Employee to a Project");
 		System.out.println("4. View total number of days Employee worked in a project and also their wages.");
-		System.out.println("5. Go Back");
+		System.out.println("5. Logout");
 		System.out.println();
 		System.out.println(ConsoleColor.BANANA_YELLOW_BOLD+"Enter Option Number :"+ConsoleColor.RESET);
 		
