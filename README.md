@@ -25,9 +25,10 @@ Function of Gram Panchayet member:
 5. View total number of days Employee worked in a project and also their wages.
 
 
+
 <h2>Flow Chart</h2>
 
-![FlowChart](https://user-images.githubusercontent.com/106314995/208410646-bb6370c3-1e2a-4ecf-9c0f-dad7d2c6c79c.png)
+![mgnregaFlowChart](https://user-images.githubusercontent.com/106314995/208617133-8461f689-98b0-4cea-ac7f-99a3d918de3c.png)
 
 <h2>Rails and Relational SQL Database Tables</h2>
 <img src="https://user-images.githubusercontent.com/106314995/208484882-7ca90d5f-198f-4a75-b140-3690f2d1889e.png">
