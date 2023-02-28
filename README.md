@@ -1,4 +1,4 @@
-# nimble-purpose-9234
+# MNREGA(The Mahatma Gandhi National Rural Employment Guarantee Act )
 
 MGNREGA
 Domain Description:
